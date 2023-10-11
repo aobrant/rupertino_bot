@@ -1,0 +1,1 @@
+chatGPT client with voice requests in Russian
