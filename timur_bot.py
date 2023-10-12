@@ -1,12 +1,6 @@
 from google.cloud import vision
 import openai
 
-# Google Cloud Vision and OpenAI GPT-3 credentials
-GOOGLE_CLOUD_VISION_CREDENTIALS = "boxwood-office-384709-60faad637882.json"
-# Установите ваш API-ключ
-openai.api_key = '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'
-
-
 def detect_text(path):
     """Detects text in the file."""
     client = vision.ImageAnnotatorClient.from_service_account_json(GOOGLE_CLOUD_VISION_CREDENTIALS)
