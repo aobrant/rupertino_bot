@@ -77,4 +77,4 @@ async def message_response(message: types.Message, state: FSMContext):
             print(f"Произошла ошибка при удалении файла: {str(e)}")
 
     else:
-        await message.answer("3")
+        await message.answer(gpt_reply)

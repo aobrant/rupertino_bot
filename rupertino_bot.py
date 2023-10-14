@@ -5,7 +5,6 @@ import openai
 from aiogram.fsm.context import FSMContext
 from aiogram.types import FSInputFile
 from gtts import gTTS
-from pydub import AudioSegment
 from aiogram import Bot, Dispatcher, types
 import os
 from dotenv import load_dotenv
@@ -57,7 +56,7 @@ async def converting_audio(message: types.Message, state: FSMContext):
     )
     gpt_reply = gpt_response.choices[0].text
     current_state = await state.get_state()
-    if current_state == States.write_state:
+    if current_state == States.read_state:
         await message.answer(gpt_reply)
     elif current_state == States.read_state:
         my_audio = gTTS(text=gpt_reply, lang=language, slow=False)
@@ -81,7 +80,7 @@ async def converting_audio(message: types.Message, state: FSMContext):
             print(f"Произошла ошибка при удалении файла: {str(e)}")
 
     else:
-        await message.answer("3")
+        await message.answer(gpt_reply)
 
 
 async def main():
