@@ -1,5 +1,6 @@
 from aiogram.utils.markdown import text
 import speech_recognition as sr
+from aiogram.fsm.state import StatesGroup, State
 
 help_message = text(
     "/start",
@@ -20,3 +21,8 @@ def recognise(filename):
         except:
             print('Sorry.. run again...')
             return "Sorry.. run again..."
+
+
+class States(StatesGroup):
+    write_state = State()
+    read_state = State()
