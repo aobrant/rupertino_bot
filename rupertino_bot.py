@@ -56,7 +56,7 @@ async def converting_audio(message: types.Message, state: FSMContext):
     )
     gpt_reply = gpt_response.choices[0].text
     current_state = await state.get_state()
-    if current_state == States.read_state:
+    if current_state == States.write_state:
         await message.answer(gpt_reply)
     elif current_state == States.read_state:
         my_audio = gTTS(text=gpt_reply, lang=language, slow=False)
