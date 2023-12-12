@@ -5,6 +5,7 @@ from aiogram.fsm.state import StatesGroup, State
 help_message = text(
     "/start",
     "/help",
+    "beginin with pic picture",
     sep="\n"
 )
 
