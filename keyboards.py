@@ -6,6 +6,10 @@ kb_1 = [
 kb_2 = [
         [types.KeyboardButton(text="Писать")]
     ]
+kb_img = [
+         [types.KeyboardButton(text="img")]
+]
+
 keyboard_write = types.ReplyKeyboardMarkup(
     keyboard=kb_1,
     resize_keyboard=True,

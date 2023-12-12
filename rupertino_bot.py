@@ -9,6 +9,8 @@ from aiogram import Bot, Dispatcher, types
 import os
 from dotenv import load_dotenv
 from aiogram import F
+from openai import AsyncOpenAI
+
 from misc import States
 
 openai_key = os.getenv("OPENAI_API_KEY")
@@ -16,7 +18,7 @@ openai_key = os.getenv("OPENAI_API_KEY")
 from handlers import begin, vision, audio_resp
 from misc import help_message, recognise
 
-language='ru'
+language = 'ru'
 
 load_dotenv()
 TelegramToken = os.getenv("TOKEN")
@@ -30,6 +32,10 @@ dp = Dispatcher()
 dp.include_router(vision.router)
 dp.include_router(audio_resp.router)
 dp.include_router(begin.router)
+
+client = AsyncOpenAI(
+    api_key=openai_key
+)
 
 
 @dp.message(F.voice)
@@ -48,13 +54,17 @@ async def converting_audio(message: types.Message, state: FSMContext):
     text = recognise(audio_path_full_converted)
     os.remove(audio_path)
     os.remove(audio_path_full_converted)
-    gpt_response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=text,
-        max_tokens=3000,
-        api_key=openai_key
+    chat_completion = await client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": text,
+            }
+        ],
+        # model="gpt-3.5-turbo",
+        model="gpt-4-1106-preview",
     )
-    gpt_reply = gpt_response.choices[0].text
+    gpt_reply = chat_completion.choices[0].message.content
     current_state = await state.get_state()
     if current_state == States.write_state:
         await message.answer(gpt_reply)

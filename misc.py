@@ -26,3 +26,4 @@ def recognise(filename):
 class States(StatesGroup):
     write_state = State()
     read_state = State()
+
