@@ -49,7 +49,7 @@ async def speak(message: types.Message, state=FSMContext):
 async def message_response(message: types.Message, state: FSMContext):
     user_text = message.text
     if user_text.startswith("@"):
-        new_text = user_text[3:]
+        new_text = user_text[1:]
         response = await client.images.generate(
             model="dall-e-3",
             prompt=new_text,
