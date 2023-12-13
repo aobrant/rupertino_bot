@@ -48,7 +48,7 @@ async def speak(message: types.Message, state=FSMContext):
 @router.message(F.text)
 async def message_response(message: types.Message, state: FSMContext):
     user_text = message.text
-    if user_text.startswith("pic"):
+    if user_text.startswith("@"):
         new_text = user_text[3:]
         response = await client.images.generate(
             model="dall-e-3",
